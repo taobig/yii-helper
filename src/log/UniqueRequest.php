@@ -4,7 +4,7 @@
 namespace taobig\yii\log;
 
 
-class QUniqueRequest
+class UniqueRequest
 {
     private static $_unique_request_id = null;
 

@@ -2,7 +2,7 @@
 namespace taobig\yii;
 
 use taobig\yii\filters\VerbFilter;
-use taobig\yii\log\QCustomLogger;
+use taobig\yii\log\CustomLogger;
 use yii\web\JsonParser;
 use yii\web\Response;
 
@@ -34,7 +34,7 @@ class BaseJsonController extends BaseController
     public function beforeAction($action)
     {
         $params = \Yii::$app->request->getRawBody();
-        QCustomLogger::access($params, true);
+        CustomLogger::access($params, true);
 
         return parent::beforeAction($action);
     }
@@ -46,7 +46,7 @@ class BaseJsonController extends BaseController
         } else {
             $message = $result;
         }
-        QCustomLogger::access($message);
+        CustomLogger::access($message);
 
         return parent::afterAction($action, $result);
     }

@@ -7,7 +7,7 @@ namespace taobig\yii\log;
 use yii\log\Logger;
 
 
-class QCustomLogger
+class CustomLogger
 {
     const TYPE_ERROR = Logger::LEVEL_ERROR;
     const TYPE_INFO = Logger::LEVEL_INFO;
@@ -35,7 +35,7 @@ class QCustomLogger
     {
         $log = [
             'project_name' => \Yii::$app->name,
-            'unique_id' => QUniqueRequest::getId(),
+            'unique_id' => UniqueRequest::getId(),
             'error_type' => $error_type,
             'datetime' => date('Y-m-d H:i:s'),
             'request_uri' => $_SERVER['REQUEST_URI'] ?? '',
@@ -57,10 +57,10 @@ class QCustomLogger
             $url = $_SERVER['REQUEST_URI'];
             $method = $_SERVER['REQUEST_METHOD'];
             $remote_ip = $_SERVER['REMOTE_ADDR'];
-            $title = QUniqueRequest::getId() . "\n[{$dt}] [{$remote_ip}] [{$method}] [{$url}] " . PHP_EOL;
+            $title = UniqueRequest::getId() . "\n[{$dt}] [{$remote_ip}] [{$method}] [{$url}] " . PHP_EOL;
             $logBody = $title . $message . PHP_EOL;
         } else {
-            $logBody = QUniqueRequest::getId() . "\n {$dt}>>> " . $message . PHP_EOL . PHP_EOL;
+            $logBody = UniqueRequest::getId() . "\n {$dt}>>> " . $message . PHP_EOL . PHP_EOL;
         }
 
         self::getLogger()->log($logBody, self::TYPE_ERROR, self::CATEGORY_ACCESS);
