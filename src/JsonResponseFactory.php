@@ -9,7 +9,7 @@ class JsonResponseFactory
     const CODE_COMMON_ERROR = 1;
     const CODE_API_INVOKE_ERROR = 11;
 
-    public static function buildSuccessResponse($data, string $message = ''): array
+    public static function buildSuccessResponse($data = null, string $message = ''): array
     {
         return self::buildData($message, self::CODE_NO_ERROR, $data);
     }
