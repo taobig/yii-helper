@@ -3,8 +3,8 @@
 namespace taobig\yii\handlers;
 
 use taobig\yii\exceptions\BaseException;
-use taobig\yii\exceptions\UserException;
 use taobig\yii\JsonResponseFactory;
+use taobig\yii\log\QCustomLogger;
 use Yii;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -19,8 +19,10 @@ class ErrorHandler extends \yii\web\ErrorHandler
             $errorMessage = $exception->__toString();
         } else {
             $errorMessage = '系统异常，请稍后重试 ' . date('Y-m-d');
-            if ($exception instanceof UserException) {
-                $errorMessage = $exception->getMessage();
+            if ($exception instanceof BaseException) {
+                if ($exception->getExposeErrorMessage()) {
+                    $errorMessage = $exception->getMessage();
+                }
             } else {//Framework Exception
                 if ($exception instanceof NotFoundHttpException) {
                     $errorMessage = $exception->getMessage();//Page not found.
@@ -61,8 +63,9 @@ class ErrorHandler extends \yii\web\ErrorHandler
 
     public function logException($exception)
     {
-        if ($exception instanceof BaseException) {//will log by BaseException::__destruct()
-            return;
+        $message = '';
+        if ($this instanceof BaseException) {
+            $message .= $this->getLoggedExceptionMessage();
         }
         if ($exception instanceof NotFoundHttpException) {//don't log
             return;
@@ -73,7 +76,7 @@ class ErrorHandler extends \yii\web\ErrorHandler
 //        } elseif ($exception instanceof \ErrorException) {
 //            $category .= ':' . $exception->getSeverity();
 //        }
-        \QCustomLogger::logException($exception);
+        QCustomLogger::logException($exception, $message);
     }
 
 }

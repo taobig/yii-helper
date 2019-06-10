@@ -3,6 +3,7 @@
 namespace taobig\yii\handlers;
 
 use taobig\yii\exceptions\BaseException;
+use taobig\yii\log\QCustomLogger;
 
 class ConsoleErrorHandler extends \yii\base\ErrorHandler
 {
@@ -15,10 +16,11 @@ class ConsoleErrorHandler extends \yii\base\ErrorHandler
 
     public function logException($exception)
     {
-        if ($exception instanceof BaseException) {//will log by BaseException::__destruct()
-            return;
+        $message = '';
+        if ($this instanceof BaseException) {
+            $message .= $this->getLoggedExceptionMessage();
         }
-        \QCustomLogger::logException($exception);
+        QCustomLogger::logException($exception, $message);
     }
 
 }

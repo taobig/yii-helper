@@ -3,7 +3,7 @@
 namespace taobig\yii\exceptions;
 
 
-class InnerException extends BaseException
+class SystemException extends BaseException
 {
 
 }

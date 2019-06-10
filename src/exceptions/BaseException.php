@@ -7,24 +7,21 @@ use Throwable;
 
 abstract class BaseException extends \Exception
 {
+    protected $exposeErrorMessage = false;
+
+    public function getExposeErrorMessage(): bool
+    {
+        return $this->exposeErrorMessage;
+    }
+
+    public function getLoggedExceptionMessage(): string
+    {
+        return $this->message;
+    }
 
     public function __construct(string $message = "", int $code = JsonResponseFactory::CODE_COMMON_ERROR, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }
 
-    public function __destruct()
-    {
-        $message = $this->getMessage();
-        if ($this instanceof APIException) {
-            $message .= ' ' . $this->getUrl() . ' ' . json_encode($this->getRequest());
-            $response = $this->getResponse();
-            if (!is_string($response)) {
-                $message .= ' ' . json_encode($response);
-            } else {
-                $message .= ' ' . $response;
-            }
-        }
-        \QCustomLogger::logException($this, $message);
-    }
 }
