@@ -2,6 +2,7 @@
 
 namespace taobig\yii;
 
+use taobig\yii\exceptions\UserException;
 use yii\db\ActiveRecord;
 
 abstract class BaseModel extends ActiveRecord
@@ -70,4 +71,17 @@ abstract class BaseModel extends ActiveRecord
         return '';
     }
 
+
+    public function validateAndThrowException($attributeNames = null, $clearErrors = true)
+    {
+        $flag = parent::validate($attributeNames, $clearErrors);
+
+        if (!$flag) {
+            if ($this->hasErrors()) {
+                throw new UserException(current($this->getFirstErrors()));
+            }
+        }
+
+        return $flag;
+    }
 }
