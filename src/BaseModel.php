@@ -15,10 +15,10 @@ abstract class BaseModel extends ActiveRecord
         return 'deleted_at';
     }
 
-    public function optimisticLock()
-    {
-        return 'version';
-    }
+//    public function optimisticLock()
+//    {
+//        return 'version';
+//    }
 
     /**
      * @param $condition
