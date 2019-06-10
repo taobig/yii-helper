@@ -2,8 +2,7 @@
 
 namespace taobig\yii\exceptions;
 
-
-use taobig\yii\JsonResponseFactory;
+use taobig\yii\JsonResponseConstants;
 
 class APIException extends BaseException
 {
@@ -21,7 +20,7 @@ class APIException extends BaseException
      * @param int $code
      * @param \Exception $previous
      */
-    public function __construct(string $message, string $url, $response, $request, int $code = JsonResponseFactory::CODE_API_INVOKE_ERROR, \Exception $previous = null)
+    public function __construct(string $message, string $url, $response, $request, int $code = JsonResponseConstants::CODE_API_INVOKE_ERROR, \Exception $previous = null)
     {
         $this->_url = $url;
         $this->_response = $response;

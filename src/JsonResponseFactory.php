@@ -5,16 +5,12 @@ namespace taobig\yii;
 class JsonResponseFactory
 {
 
-    const CODE_NO_ERROR = 0;
-    const CODE_COMMON_ERROR = 1;
-    const CODE_API_INVOKE_ERROR = 11;
-
     public static function buildSuccessResponse($data = null, string $message = ''): array
     {
-        return self::buildData($message, self::CODE_NO_ERROR, $data);
+        return self::buildData($message, JsonResponseConstants::CODE_NO_ERROR, $data);
     }
 
-    public static function buildErrorResponse(string $message, $data = null, int $status = self::CODE_COMMON_ERROR): array
+    public static function buildErrorResponse(string $message, $data = null, int $status = JsonResponseConstants::CODE_COMMON_ERROR): array
     {
         return self::buildData($message, $status, $data);
     }
@@ -22,6 +18,7 @@ class JsonResponseFactory
     private static function buildData(string $message, int $status, $data = null): array
     {
         $result = [
+            'code' => $status,
             'status' => $status,
             'message' => $message,
             'data' => $data,

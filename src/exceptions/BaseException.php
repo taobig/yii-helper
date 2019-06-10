@@ -2,7 +2,7 @@
 
 namespace taobig\yii\exceptions;
 
-use taobig\yii\JsonResponseFactory;
+use taobig\yii\JsonResponseConstants;
 use Throwable;
 
 abstract class BaseException extends \Exception
@@ -25,7 +25,7 @@ abstract class BaseException extends \Exception
         return $this->message;
     }
 
-    public function __construct(string $message = "", int $code = JsonResponseFactory::CODE_COMMON_ERROR, Throwable $previous = null, $extraData = null)
+    public function __construct(string $message = "", int $code = JsonResponseConstants::CODE_COMMON_ERROR, Throwable $previous = null, $extraData = null)
     {
         $this->extraData = $extraData;
 
