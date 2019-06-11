@@ -2,8 +2,7 @@
 
 namespace taobig\yii\filters;
 
-use taobig\yii\exceptions\UserException;
-use Yii;
+use taobig\yii\exceptions\ForbiddenHttpException;
 use yii\web\User;
 
 class AccessControl extends \yii\filters\AccessControl
@@ -13,15 +12,14 @@ class AccessControl extends \yii\filters\AccessControl
      * The default implementation will redirect the user to the login page if he is a guest;
      * if the user is already logged, a 403 HTTP exception will be thrown.
      * @param User $user the current user
-     * @throws UserException if the user is already logged in.
+     * @throws ForbiddenHttpException
      */
     protected function denyAccess($user)
     {
-        if ($user->getIsGuest()) {
-            $user->loginRequired();
-        } else {
-            throw new UserException(Yii::t('yii', 'You are not allowed to perform this action.'));
-            //throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
+        try {
+            parent::denyAccess($user);
+        } catch (\yii\web\ForbiddenHttpException $e) {
+            throw new ForbiddenHttpException($e->getMessage());
         }
     }
 }
