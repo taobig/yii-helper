@@ -2,8 +2,8 @@
 
 namespace taobig\yii\handlers;
 
+use taobig\yii\Container;
 use taobig\yii\exceptions\BaseException;
-use taobig\yii\JsonResponseFactory;
 use taobig\yii\log\CustomLogger;
 use Yii;
 use yii\web\NotFoundHttpException;
@@ -42,7 +42,7 @@ class ErrorHandler extends \yii\web\ErrorHandler
             $response = new Response();
         }
 
-        if (JsonResponseFactory::isJsonResponse() || $response->format == Response::FORMAT_JSON) {
+        if (Container::getJsonResponseFactory()->isJsonResponse() || $response->format == Response::FORMAT_JSON) {
             $response->setStatusCode(200);//保证返回格式为json时，HTTP状态码总是200
             if ($response->format != Response::FORMAT_JSON) {
                 $response->format = Response::FORMAT_JSON;
@@ -54,9 +54,9 @@ class ErrorHandler extends \yii\web\ErrorHandler
             }
 
             if ($exception instanceof BaseException) {
-                $response->data = JsonResponseFactory::buildErrorResponse($errorMessage, $errorData, $exception->getCode());
+                $response->data = Container::getJsonResponseFactory()->buildErrorResponse($errorMessage, $errorData, $exception->getCode());
             } else {
-                $response->data = JsonResponseFactory::buildErrorResponse($errorMessage, $errorData);
+                $response->data = Container::getJsonResponseFactory()->buildErrorResponse($errorMessage, $errorData);
             }
         } else {
             $response->setStatusCodeByException($exception);

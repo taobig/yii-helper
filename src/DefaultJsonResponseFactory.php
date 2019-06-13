@@ -2,7 +2,7 @@
 
 namespace taobig\yii;
 
-class JsonResponseFactory
+class DefaultJsonResponseFactory implements JsonResponseFactoryInterface
 {
 
     public static function buildSuccessResponse($data = null, string $message = ''): array
@@ -18,7 +18,6 @@ class JsonResponseFactory
     private static function buildData(string $message, int $status, $data = null): array
     {
         $result = [
-            'code' => $status,
             'status' => $status,
             'message' => $message,
             'data' => $data,
