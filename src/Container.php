@@ -27,10 +27,12 @@ final class Container
      */
     public static function getJsonResponseFactory()
     {
-        if (!isset(self::$_singletons[JsonResponseFactoryInterface::class]) && isset(self::$_definitions[JsonResponseFactoryInterface::class])) {
-            self::$_singletons[JsonResponseFactoryInterface::class] = new self::$_definitions[JsonResponseFactoryInterface::class];
-        } else {
-            self::$_singletons[JsonResponseFactoryInterface::class] = new DefaultJsonResponseFactory();
+        if (empty(self::$_singletons[JsonResponseFactoryInterface::class])) {
+            if (isset(self::$_definitions[JsonResponseFactoryInterface::class])) {
+                self::$_singletons[JsonResponseFactoryInterface::class] = new self::$_definitions[JsonResponseFactoryInterface::class];
+            } else {
+                self::$_singletons[JsonResponseFactoryInterface::class] = new DefaultJsonResponseFactory();
+            }
         }
         return self::$_singletons[JsonResponseFactoryInterface::class];
     }
