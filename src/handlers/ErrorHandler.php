@@ -67,9 +67,9 @@ class ErrorHandler extends \yii\web\ErrorHandler
 
     public function logException($exception)
     {
-        $message = '';
+        $message = $exception->getMessage();
         if ($this instanceof BaseException) {
-            $message .= $this->getLoggedExceptionMessage();
+            $message = $this->getLoggedExceptionMessage();
         }
         if ($exception instanceof NotFoundHttpException) {//don't log
             return;

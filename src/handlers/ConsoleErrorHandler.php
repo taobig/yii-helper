@@ -15,9 +15,9 @@ class ConsoleErrorHandler extends \yii\base\ErrorHandler
 
     public function logException($exception)
     {
-        $message = '';
+        $message = $exception->getMessage();
         if ($this instanceof BaseException) {
-            $message .= $this->getLoggedExceptionMessage();
+            $message = $this->getLoggedExceptionMessage();
         }
         \Yii::error($message);
     }
