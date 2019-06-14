@@ -26,11 +26,6 @@ class CustomLogger
         self::log(self::TYPE_ERROR, $message ?: $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTraceAsString());
     }
 
-    public static function error(string $message)
-    {
-        self::log(self::TYPE_ERROR, $message);
-    }
-
     public static function log(string $error_type, string $message, string $filename = '', int $line = 0, string $trace = '')
     {
         $log = [
