@@ -4,7 +4,6 @@ namespace taobig\yii\handlers;
 
 use taobig\yii\Container;
 use taobig\yii\exceptions\BaseException;
-use taobig\yii\log\CustomLogger;
 use Yii;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -81,7 +80,7 @@ class ErrorHandler extends \yii\web\ErrorHandler
 //        } elseif ($exception instanceof \ErrorException) {
 //            $category .= ':' . $exception->getSeverity();
 //        }
-        CustomLogger::logException($exception, $message);
+        \Yii::error($message);
     }
 
 }

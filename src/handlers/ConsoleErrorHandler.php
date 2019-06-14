@@ -3,7 +3,6 @@
 namespace taobig\yii\handlers;
 
 use taobig\yii\exceptions\BaseException;
-use taobig\yii\log\CustomLogger;
 
 class ConsoleErrorHandler extends \yii\base\ErrorHandler
 {
@@ -20,7 +19,7 @@ class ConsoleErrorHandler extends \yii\base\ErrorHandler
         if ($this instanceof BaseException) {
             $message .= $this->getLoggedExceptionMessage();
         }
-        CustomLogger::logException($exception, $message);
+        \Yii::error($message);
     }
 
 }
