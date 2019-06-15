@@ -50,15 +50,21 @@ class APIException extends BaseException
         return $this->_response;
     }
 
-    public function getLoggedExceptionMessage(): string
+    public function __toString()
     {
-        $message = ' ' . $this->getUrl() . ' ' . json_encode($this->getRequest());
-        $response = $this->getResponse();
-        if (!is_string($response)) {
-            $message .= ' ' . json_encode($response);
-        } else {
-            $message .= ' ' . $response;
+        $additionalMessage = '';
+        if ($this->getUrl()) {
+            $additionalMessage .= 'Url:' . json_encode($this->getUrl(), JSON_UNESCAPED_UNICODE);
+            $additionalMessage .= ',';
         }
-        return $message;
+        if ($this->getRequest()) {
+            $additionalMessage .= 'Request:' . json_encode($this->getRequest(), JSON_UNESCAPED_UNICODE);
+            $additionalMessage .= ',';
+        }
+        if ($this->getResponse()) {
+            $additionalMessage .= 'Response:' . json_encode($this->getResponse(), JSON_UNESCAPED_UNICODE);
+            $additionalMessage .= ',';
+        }
+        return $additionalMessage . parent::__toString();
     }
 }

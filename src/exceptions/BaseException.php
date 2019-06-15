@@ -20,11 +20,6 @@ abstract class BaseException extends \Exception
         return $this->extraData;
     }
 
-    public function getLoggedExceptionMessage(): string
-    {
-        return $this->message;
-    }
-
     public function __construct(string $message = "", int $code = JsonResponseConstants::CODE_COMMON_ERROR, Throwable $previous = null, $extraData = null)
     {
         $this->extraData = $extraData;

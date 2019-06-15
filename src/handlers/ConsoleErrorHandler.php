@@ -2,8 +2,6 @@
 
 namespace taobig\yii\handlers;
 
-use taobig\yii\exceptions\BaseException;
-
 class ConsoleErrorHandler extends \yii\base\ErrorHandler
 {
 
@@ -15,11 +13,7 @@ class ConsoleErrorHandler extends \yii\base\ErrorHandler
 
     public function logException($exception)
     {
-        $message = $exception->getMessage();
-        if ($this instanceof BaseException) {
-            $message = $this->getLoggedExceptionMessage();
-        }
-        \Yii::error($message);
+        \Yii::error($exception);
     }
 
 }
