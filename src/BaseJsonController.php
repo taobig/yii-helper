@@ -2,7 +2,6 @@
 namespace taobig\yii;
 
 use taobig\yii\filters\VerbFilter;
-use taobig\yii\log\CustomLogger;
 use yii\web\JsonParser;
 use yii\web\Response;
 
@@ -29,26 +28,6 @@ class BaseJsonController extends BaseController
         ];
         \Yii::$app->response->format = Response::FORMAT_JSON;
         parent::init();
-    }
-
-    public function beforeAction($action)
-    {
-        $params = \Yii::$app->request->getRawBody();
-        CustomLogger::access($params, true);
-
-        return parent::beforeAction($action);
-    }
-
-    public function afterAction($action, $result)
-    {
-        if (!is_string($result)) {
-            $message = json_encode($result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        } else {
-            $message = $result;
-        }
-        CustomLogger::access($message);
-
-        return parent::afterAction($action, $result);
     }
 
 }
