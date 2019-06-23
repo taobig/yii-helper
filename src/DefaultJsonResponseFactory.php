@@ -5,17 +5,23 @@ namespace taobig\yii;
 class DefaultJsonResponseFactory implements JsonResponseFactoryInterface
 {
 
-    public static function buildSuccessResponse($data = null, string $message = ''): array
+    const CODE_NO_ERROR = 0;
+    const CODE_COMMON_ERROR = 1;
+
+    public function buildSuccessResponse($data = null, string $message = ''): array
     {
-        return self::buildData($message, JsonResponseConstants::CODE_NO_ERROR, $data);
+        return self::buildData($message, self::getNoErrorStatus(), $data);
     }
 
-    public static function buildErrorResponse(string $message, $data = null, int $status = JsonResponseConstants::CODE_COMMON_ERROR): array
+    public function buildErrorResponse(string $message, $data = null, int $status = null): array
     {
+        if ($status === null) {
+            $status = self::getCommonErrorStatus();
+        }
         return self::buildData($message, $status, $data);
     }
 
-    private static function buildData(string $message, int $status, $data = null): array
+    private function buildData(string $message, int $status, $data = null): array
     {
         $result = [
             'status' => $status,
@@ -25,7 +31,17 @@ class DefaultJsonResponseFactory implements JsonResponseFactoryInterface
         return $result;
     }
 
-    public static function isJsonResponse(): bool
+    public function getNoErrorStatus(): int
+    {
+        self::CODE_NO_ERROR;
+    }
+
+    public function getCommonErrorStatus(): int
+    {
+        self::CODE_COMMON_ERROR;
+    }
+
+    public function isJsonResponse(): bool
     {
         return (!empty($_SERVER['HTTP_X_RESPONSE_TYPE'])) && $_SERVER['HTTP_X_RESPONSE_TYPE'] == 'json';
     }
