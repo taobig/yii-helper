@@ -12,6 +12,7 @@
 		"ext-mbstring":"*",
 		"ext-bcmath":"*",
 		"yiisoft/yii2" : "~2.0.19",
+		"yiisoft/yii2-redis": "^2.0",
 		"guzzlehttp/guzzle": "^6.3"
     },
 	"require-dev" : {
