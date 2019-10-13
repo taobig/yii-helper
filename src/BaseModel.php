@@ -2,6 +2,7 @@
 
 namespace taobig\yii;
 
+use taobig\yii\exceptions\ActiveRecordSaveException;
 use taobig\yii\exceptions\UserException;
 use yii\db\ActiveRecord;
 
@@ -84,4 +85,35 @@ abstract class BaseModel extends ActiveRecord
 
         return $flag;
     }
+
+    public function insertWithException()
+    {
+        if (!$this->insert()) {
+            if ($this->hasErrors()) {
+                throw new ActiveRecordSaveException(current($this->getFirstErrors()));
+            }
+            throw new ActiveRecordSaveException('insert record failed');
+        }
+    }
+
+    public function updateWithException($runValidation = true, $attributeNames = null)
+    {
+        if (!$this->update($runValidation, $attributeNames)) {
+            if ($this->hasErrors()) {
+                throw new ActiveRecordSaveException(current($this->getFirstErrors()));
+            }
+            throw new ActiveRecordSaveException('update record failed');
+        }
+    }
+
+    public function saveWithException($runValidation = true, $attributeNames = null)
+    {
+        if (!$this->save($runValidation, $attributeNames)) {
+            if ($this->hasErrors()) {
+                throw new ActiveRecordSaveException(current($this->getFirstErrors()));
+            }
+            throw new ActiveRecordSaveException('save record failed');
+        }
+    }
+
 }
