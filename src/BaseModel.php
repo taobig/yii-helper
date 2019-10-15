@@ -96,14 +96,16 @@ abstract class BaseModel extends ActiveRecord
         }
     }
 
-    public function updateWithException($runValidation = true, $attributeNames = null)
+    public function updateWithException($runValidation = true, $attributeNames = null): int
     {
-        if (!$this->update($runValidation, $attributeNames)) {
+        $affectedNum = $this->update($runValidation, $attributeNames);
+        if ($affectedNum === false) {
             if ($this->hasErrors()) {
                 throw new ActiveRecordSaveException(current($this->getFirstErrors()));
             }
             throw new ActiveRecordSaveException('update record failed');
         }
+        return (int)$affectedNum;
     }
 
     public function saveWithException($runValidation = true, $attributeNames = null)
