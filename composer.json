@@ -15,10 +15,6 @@
 		"yiisoft/yii2-redis": "^2.0",
 		"guzzlehttp/guzzle": "^6.3"
     },
-	"require-dev" : {
-		"phpunit/phpunit" : "~6.1",
-		"satooshi/php-coveralls": "^1.0"
-	},
 	"autoload" : {
 		"psr-4" : {
 			"taobig\\yii\\" : "src/"
