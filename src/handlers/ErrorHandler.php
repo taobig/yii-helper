@@ -22,7 +22,7 @@ class ErrorHandler extends \yii\web\ErrorHandler
                 if ($exception->getExposeErrorMessage()) {
                     $errorMessage = $exception->getMessage();
                 }
-            } else {//Framework Exception
+            } else {//other exceptions(include framework exception)
                 if ($exception instanceof NotFoundHttpException) {
                     $errorMessage = $exception->getMessage();//Page not found.
                 }
