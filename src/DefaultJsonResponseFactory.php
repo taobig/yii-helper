@@ -33,12 +33,12 @@ class DefaultJsonResponseFactory implements JsonResponseFactoryInterface
 
     public function getNoErrorStatus(): int
     {
-        self::CODE_NO_ERROR;
+        return self::CODE_NO_ERROR;
     }
 
     public function getCommonErrorStatus(): int
     {
-        self::CODE_COMMON_ERROR;
+        return self::CODE_COMMON_ERROR;
     }
 
     public function isJsonResponse(): bool
