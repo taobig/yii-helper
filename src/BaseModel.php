@@ -64,7 +64,7 @@ abstract class BaseModel extends ActiveRecord
         }
     }
 
-    function getFirstErrorMessage(): string
+    public function getFirstErrorMessage(): string
     {
         if ($this->hasErrors()) {
             return current($this->getFirstErrors());
@@ -73,46 +73,45 @@ abstract class BaseModel extends ActiveRecord
     }
 
 
-    public function validateAndThrowException($attributeNames = null, $clearErrors = true)
+    public function validateActiveRecord($attributeNames = null, $clearErrors = true)
     {
         $flag = parent::validate($attributeNames, $clearErrors);
-
         if (!$flag) {
             if ($this->hasErrors()) {
-                throw new UserException(current($this->getFirstErrors()));
+                throw new UserException($this->getFirstErrorMessage());
             }
         }
 
         return $flag;
     }
 
-    public function insertWithException()
+    public function insertActiveRecord()
     {
         if (!$this->insert()) {
             if ($this->hasErrors()) {
-                throw new ActiveRecordSaveException(current($this->getFirstErrors()));
+                throw new ActiveRecordSaveException($this->getFirstErrorMessage());
             }
             throw new ActiveRecordSaveException('insert record failed');
         }
     }
 
-    public function updateWithException($runValidation = true, $attributeNames = null): int
+    public function updateActiveRecord($runValidation = true, $attributeNames = null): int
     {
         $affectedNum = $this->update($runValidation, $attributeNames);
         if ($affectedNum === false) {
             if ($this->hasErrors()) {
-                throw new ActiveRecordSaveException(current($this->getFirstErrors()));
+                throw new ActiveRecordSaveException($this->getFirstErrorMessage());
             }
             throw new ActiveRecordSaveException('update record failed');
         }
         return (int)$affectedNum;
     }
 
-    public function saveWithException($runValidation = true, $attributeNames = null)
+    public function saveActiveRecord($runValidation = true, $attributeNames = null)
     {
         if (!$this->save($runValidation, $attributeNames)) {
             if ($this->hasErrors()) {
-                throw new ActiveRecordSaveException(current($this->getFirstErrors()));
+                throw new ActiveRecordSaveException($this->getFirstErrorMessage());
             }
             throw new ActiveRecordSaveException('save record failed');
         }

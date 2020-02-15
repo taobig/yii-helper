@@ -5,7 +5,9 @@ namespace taobig\yii;
 class DefaultJsonResponseFactory implements JsonResponseFactoryInterface
 {
 
+    //private
     const CODE_NO_ERROR = 0;
+    //private
     const CODE_COMMON_ERROR = 1;
 
     public function buildSuccessResponse($data = null, string $message = ''): array
