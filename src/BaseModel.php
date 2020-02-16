@@ -72,8 +72,13 @@ abstract class BaseModel extends ActiveRecord
         return '';
     }
 
-
-    public function validateActiveRecord($attributeNames = null, $clearErrors = true)
+    /**
+     * @param array|null $attributeNames
+     * @param bool $clearErrors
+     * @return bool
+     * @throws UserException
+     */
+    public function validateActiveRecord(array $attributeNames = null, bool $clearErrors = true)
     {
         $flag = parent::validate($attributeNames, $clearErrors);
         if (!$flag) {
@@ -85,6 +90,10 @@ abstract class BaseModel extends ActiveRecord
         return $flag;
     }
 
+    /**
+     * @throws ActiveRecordSaveException
+     * @throws \Throwable
+     */
     public function insertActiveRecord()
     {
         if (!$this->insert()) {
@@ -95,7 +104,15 @@ abstract class BaseModel extends ActiveRecord
         }
     }
 
-    public function updateActiveRecord($runValidation = true, $attributeNames = null): int
+    /**
+     * @param bool $runValidation
+     * @param array|null $attributeNames
+     * @return int
+     * @throws ActiveRecordSaveException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function updateActiveRecord(bool $runValidation = true, array $attributeNames = null): int
     {
         $affectedNum = $this->update($runValidation, $attributeNames);
         if ($affectedNum === false) {
@@ -107,7 +124,12 @@ abstract class BaseModel extends ActiveRecord
         return (int)$affectedNum;
     }
 
-    public function saveActiveRecord($runValidation = true, $attributeNames = null)
+    /**
+     * @param bool $runValidation
+     * @param array|null $attributeNames
+     * @throws ActiveRecordSaveException
+     */
+    public function saveActiveRecord(bool $runValidation = true, array $attributeNames = null)
     {
         if (!$this->save($runValidation, $attributeNames)) {
             if ($this->hasErrors()) {
