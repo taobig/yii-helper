@@ -23,6 +23,21 @@ abstract class BaseModel extends ActiveRecord
 //    }
 
     /**
+     * 区别于self::findActiveOne()，会加入limit(1)
+     * @param $condition
+     * @return static|null ActiveRecord instance matching the condition, or `null` if nothing matches.
+     * @throws \yii\base\InvalidConfigException
+     */
+    public static function findActiveOneLimit($condition)
+    {
+        $query = static::findByCondition($condition);
+        if (static::getSoftDeleteAttribute()) {
+            $query->andWhere([static::getSoftDeleteAttribute() => 0]);
+        }
+        return $query->limit(1)->one();
+    }
+
+    /**
      * @param $condition
      * @return static|null ActiveRecord instance matching the condition, or `null` if nothing matches.
      * @throws \yii\base\InvalidConfigException
