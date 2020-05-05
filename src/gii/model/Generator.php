@@ -85,8 +85,8 @@ class Generator extends \yii\gii\generators\model\Generator
         foreach ($this->getTableNames() as $tableName) {
             // model :
             $modelClassName = $this->generateClassName($tableName);
-            $entityClassName = $modelClassName . 'Entity';
             $queryClassName = ($this->generateQuery) ? $this->generateQueryClassName($modelClassName) : false;
+            $tableRelations = isset($relations[$tableName]) ? $relations[$tableName] : [];
             $tableSchema = $db->getTableSchema($tableName);
             $params = [
                 'tableName' => $tableName,
@@ -96,22 +96,14 @@ class Generator extends \yii\gii\generators\model\Generator
                 'properties' => $this->generateProperties($tableSchema),
                 'labels' => $this->generateLabels($tableSchema),
                 'rules' => $this->generateRules($tableSchema),
-                'relations' => isset($relations[$tableName]) ? $relations[$tableName] : [],
+                'relations' => $tableRelations,
+                'relationsClassHints' => $this->generateRelationsClassHints($tableRelations, $this->generateQuery),
             ];
-            $params['entityClassName'] = $entityClassName;
             $params['giiVersion'] = $giiVersion;
             $files[] = new CodeFile(
-                Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $entityClassName . '.php',
-                $this->render('entity.php', $params)
+                Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $modelClassName . '.php',
+                $this->render('model.php', $params)
             );
-
-            $modelFile = Yii::getAlias('@' . str_replace('\\', '/', $this->queryNs)) . '/' . $modelClassName . '.php';
-            if(!file_exists($modelFile)) {
-                $files[] = new CodeFile(
-                    $modelFile,
-                    $this->render('model.php', $params)
-                );
-            }
 
             // query :
             if ($queryClassName) {

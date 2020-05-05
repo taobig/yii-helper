@@ -13,6 +13,8 @@
 /* @var $relations array list of relations (name => relation declaration) */
 /* @var $className string class name */
 /* @var $modelClassName string related model class name */
+/* @var $giiVersion string */
+/* @var $properties array the generated properties (property => type) */
 
 $modelFullClassName = $modelClassName;
 if ($generator->ns !== $generator->queryNs) {
