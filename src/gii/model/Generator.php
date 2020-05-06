@@ -18,6 +18,8 @@ class Generator extends \yii\gii\generators\model\Generator
     public $useTablePrefix = true;
     public $generateQuery = true;
     public $queryBaseClass = BaseQuery::class;
+    public $optimisticLockFiled = 'version';
+    public $optimisticLockFiledComment = 'optimistic lock filed';
 
     private function unStickyAttributes(): array
     {
@@ -100,6 +102,8 @@ class Generator extends \yii\gii\generators\model\Generator
                 'relationsClassHints' => $this->generateRelationsClassHints($tableRelations, $this->generateQuery),
             ];
             $params['giiVersion'] = $giiVersion;
+            $params['optimisticLockFiled'] = $this->optimisticLockFiled;
+            $params['optimisticLockFiledComment'] = $this->optimisticLockFiledComment;
             $files[] = new CodeFile(
                 Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $modelClassName . '.php',
                 $this->render('model.php', $params)
