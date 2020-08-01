@@ -2,7 +2,9 @@
 
 namespace taobig\yii;
 
-class BaseCronController extends BaseController
+use yii\console\Controller;
+
+class BaseCronController extends Controller
 {
 
     protected $start_time = 0;
