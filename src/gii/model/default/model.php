@@ -39,7 +39,7 @@ use Yii;
  */
 class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
-<?php if (($optimisticLockFiled === '') && in_array($optimisticLockFiled, array_keys($properties)) && ($properties[$optimisticLockFiled]['comment'] == $optimisticLockFiledComment)): ?>
+<?php if ($optimisticLockFiled && in_array($optimisticLockFiled, array_keys($properties)) && ($properties[$optimisticLockFiled]['comment'] == $optimisticLockFiledComment)): ?>
 
     /**
      * @return string
