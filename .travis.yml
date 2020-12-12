@@ -12,6 +12,7 @@ php:
   - 7.2
   - 7.3
   - 7.4
+  - 8.0
 #  - nightly
 
 matrix:
@@ -34,6 +35,7 @@ install:
   - |
   #  - travis_retry composer self-update && composer --version
   - composer --version
+  - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
   # use composer 1.x
   - wget -c -O ~/composer https://getcomposer.org/download/1.10.19/composer.phar && chmod +x ~/composer
   - php ~/composer --version
