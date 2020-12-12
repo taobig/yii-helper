@@ -32,11 +32,16 @@ cache:
 
 install:
   - |
-  - travis_retry composer self-update && composer --version
+  #  - travis_retry composer self-update && composer --version
+  - composer --version
+  # use composer 1.x
+  - wget -c -O ~/composer https://getcomposer.org/download/1.10.19/composer.phar && chmod +x ~/composer
+  - php ~/composer --version
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   # core framework:
   - travis_retry php ~/composer global require "fxp/composer-asset-plugin:^1.4.2" && php ~/composer global show
-  - travis_retry composer install --prefer-dist --no-interaction
+  - travis_retry php ~/composer install --prefer-dist --no-interaction
+
 
 before_script:
   # show some versions and env information
@@ -49,7 +54,7 @@ script:
   # ensure no files contain UTF-8 byte order mark
   - if ! grep -rlI $'\xEF\xBB\xBF' src/ ; then echo "no utf8 BOM found"; else echo "found utf8 BOM in some files. See above."; exit 1; fi
   # validate composer.json
-  - composer validate --no-check-lock
+  - php ~/composer validate --no-check-lock
   # run PHPUnit
   - vendor/bin/phpunit --verbose
 
