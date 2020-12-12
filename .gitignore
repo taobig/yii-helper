@@ -27,3 +27,4 @@ composer.phar
 composer.lock
 
 build
+/.phpunit.result.cache
