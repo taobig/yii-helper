@@ -14,7 +14,7 @@ class BaseCronController extends Controller
      * @param string $message
      * @return string
      */
-    protected function actionStart(string $message)
+    protected function actionStart(string $message): string
     {
         $this->start_time = microtime(true);
         return $this->formatLog("[start]{$message}");
@@ -24,7 +24,7 @@ class BaseCronController extends Controller
      * @param string $message
      * @return string
      */
-    protected function actionEnd(string $message)
+    protected function actionEnd(string $message): string
     {
         $this->end_time = microtime(true);
         $seconds = number_format($this->end_time - $this->start_time, 5);
@@ -36,7 +36,7 @@ class BaseCronController extends Controller
      * @param bool $showMemoryUsage
      * @return string
      */
-    protected function formatLog(string $message, bool $showMemoryUsage = false)
+    protected function formatLog(string $message, bool $showMemoryUsage = false): string
     {
         if ($showMemoryUsage) {
             $memoryUsage1 = (memory_get_usage(true) / 1024 / 1024) . " MB";
@@ -52,6 +52,5 @@ class BaseCronController extends Controller
     {
         return $this->formatLog(str_replace("\n", ' ', $sql), $showMemoryUsage);
     }
-
 
 }
