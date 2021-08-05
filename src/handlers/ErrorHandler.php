@@ -17,7 +17,7 @@ class ErrorHandler extends \yii\web\ErrorHandler
         if (YII_ENV_DEV) {
             $errorMessage = $exception->__toString();
         } else {
-            $errorMessage = '系统异常，请稍后重试 ' . date('Y-m-d');
+            $errorMessage = Yii::t('app', 'System error, please try again later');
             if ($exception instanceof BaseException) {
                 if ($exception->getExposeErrorMessage()) {
                     $errorMessage = $exception->getMessage();
@@ -59,7 +59,7 @@ class ErrorHandler extends \yii\web\ErrorHandler
             }
         } else {
             $response->setStatusCodeByException($exception);
-            $response->data = Yii::$app->view->render('@app/views/layouts/error', ['name' => '出错了……', 'message' => $errorMessage]);
+            $response->data = Yii::$app->view->render('@app/views/layouts/error', ['name' => Yii::t('app', 'Error'), 'message' => $errorMessage]);
         }
         $response->send();
     }
