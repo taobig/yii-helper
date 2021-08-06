@@ -4,6 +4,7 @@ namespace taobig\yii;
 
 use taobig\yii\exceptions\ActiveRecordSaveException;
 use taobig\yii\exceptions\UserException;
+use Yii;
 use yii\db\ActiveRecord;
 
 abstract class BaseModel extends ActiveRecord
@@ -115,7 +116,7 @@ abstract class BaseModel extends ActiveRecord
             if ($this->hasErrors()) {
                 throw new ActiveRecordSaveException($this->getFirstErrorMessage());
             }
-            throw new ActiveRecordSaveException('insert record failed');
+            throw new ActiveRecordSaveException(Yii::t('app', 'Insert record failed'));
         }
     }
 
@@ -134,7 +135,7 @@ abstract class BaseModel extends ActiveRecord
             if ($this->hasErrors()) {
                 throw new ActiveRecordSaveException($this->getFirstErrorMessage());
             }
-            throw new ActiveRecordSaveException('update record failed');
+            throw new ActiveRecordSaveException(Yii::t('app', 'Update record failed'));
         }
         return (int)$affectedNum;
     }
@@ -150,7 +151,7 @@ abstract class BaseModel extends ActiveRecord
             if ($this->hasErrors()) {
                 throw new ActiveRecordSaveException($this->getFirstErrorMessage());
             }
-            throw new ActiveRecordSaveException('save record failed');
+            throw new ActiveRecordSaveException(Yii::t('app', 'Save record failed'));
         }
     }
 
