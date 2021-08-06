@@ -78,6 +78,7 @@ abstract class BaseModel extends ActiveRecord
             $this->{$softDeleteAttribute} = time();
             return $this->update(true, [$softDeleteAttribute]);
         }
+        return false;
     }
 
     public function getFirstErrorMessage(): string
