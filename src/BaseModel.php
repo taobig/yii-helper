@@ -95,7 +95,7 @@ abstract class BaseModel extends ActiveRecord
      * @return bool
      * @throws UserException
      */
-    public function validateActiveRecord(array $attributeNames = null, bool $clearErrors = true)
+    public function validateActiveRecord(array $attributeNames = null, bool $clearErrors = true): bool
     {
         $flag = parent::validate($attributeNames, $clearErrors);
         if (!$flag) {
