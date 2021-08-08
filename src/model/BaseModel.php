@@ -29,7 +29,7 @@ abstract class BaseModel extends ActiveRecord
      * @return bool
      * @throws UserException
      */
-    public function validateActiveRecord(array $attributeNames = null, bool $clearErrors = true): bool
+    public function validateActiveRecord(?array $attributeNames = null, bool $clearErrors = true): bool
     {
         $flag = parent::validate($attributeNames, $clearErrors);
         if (!$flag) {
@@ -45,7 +45,7 @@ abstract class BaseModel extends ActiveRecord
      * @throws ActiveRecordSaveException
      * @throws \Throwable
      */
-    public function insertActiveRecord()
+    public function insertActiveRecord(): void
     {
         if (!$this->insert()) {
             if ($this->hasErrors()) {
@@ -63,7 +63,7 @@ abstract class BaseModel extends ActiveRecord
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function updateActiveRecord(bool $runValidation = true, array $attributeNames = null): int
+    public function updateActiveRecord(bool $runValidation = true, ?array $attributeNames = null): int
     {
         $affectedNum = $this->update($runValidation, $attributeNames);
         if ($affectedNum === false) {
@@ -80,7 +80,7 @@ abstract class BaseModel extends ActiveRecord
      * @param array|null $attributeNames
      * @throws ActiveRecordSaveException
      */
-    public function saveActiveRecord(bool $runValidation = true, array $attributeNames = null)
+    public function saveActiveRecord(bool $runValidation = true, ?array $attributeNames = null): void
     {
         if (!$this->save($runValidation, $attributeNames)) {
             if ($this->hasErrors()) {
