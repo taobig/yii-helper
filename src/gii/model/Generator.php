@@ -3,9 +3,9 @@
 namespace taobig\yii\gii\model;
 
 
-use taobig\yii\BaseModel;
 use taobig\yii\BaseQuery;
 use ReflectionClass;
+use taobig\yii\model\BaseModel;
 use Yii;
 use yii\gii\CodeFile;
 use yii\gii\Module;

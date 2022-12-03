@@ -5,13 +5,12 @@ namespace taobig\yii;
 use taobig\yii\exceptions\ActiveRecordSaveException;
 use taobig\yii\exceptions\UserException;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * @deprecated
  * @see \taobig\yii\model\BaseModel
  */
-abstract class BaseModel extends ActiveRecord
+abstract class BaseModel extends \taobig\yii\model\BaseModel
 {
 
     /**
