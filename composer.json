@@ -1,5 +1,4 @@
 {
-
 	"name" : "taobig/yii-helper",
 	"description" : "yii components",
 	"type" : "library",
@@ -17,13 +16,16 @@
 	},
 	"require-dev": {
 		"yiisoft/yii2-gii": "^2.2",
-		"phpunit/phpunit": "^6.0 || ^9.5",
+		"phpunit/phpunit": "^9.5 || ^8.0 || ^7.0 || ^6.0",
 		"php-coveralls/php-coveralls": "^2.4"
 	},
 	"config": {
 		"process-timeout": 1800,
 		"fxp-asset": {
 			"enabled": false
+		},
+		"allow-plugins": {
+			"yiisoft/yii2-composer": true
 		}
 	},
 	"autoload" : {
