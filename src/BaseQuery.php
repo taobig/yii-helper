@@ -2,7 +2,10 @@
 
 namespace taobig\yii;
 
-abstract class BaseQuery extends \yii\db\ActiveQuery
+/**
+ * @deprecated
+ */
+abstract class BaseQuery extends \taobig\yii\model\BaseQuery
 {
     /*public function active()
     {
