@@ -6,6 +6,7 @@ use taobig\yii\exceptions\ActiveRecordSaveException;
 use taobig\yii\exceptions\UserException;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\db\Exception;
 
 abstract class BaseModel extends ActiveRecord
 {
@@ -18,7 +19,7 @@ abstract class BaseModel extends ActiveRecord
     /**
      * @return string|null
      */
-    public static function getSoftDeleteAttribute()
+    public static function getSoftDeleteAttribute(): ?string
     {
         //return 'deleted_at'; //soft delete attribute
         return null; //no soft delete
@@ -38,7 +39,7 @@ abstract class BaseModel extends ActiveRecord
      * @return bool
      * @throws UserException
      */
-    public function validateActiveRecord(array $attributeNames = null, bool $clearErrors = true): bool
+    public function validateActiveRecord(?array $attributeNames = null, bool $clearErrors = true): bool
     {
         $flag = parent::validate($attributeNames, $clearErrors);
         if (!$flag) {
@@ -54,7 +55,7 @@ abstract class BaseModel extends ActiveRecord
      * @throws ActiveRecordSaveException
      * @throws \Throwable
      */
-    public function insertActiveRecord()
+    public function insertActiveRecord(): void
     {
         if (!$this->insert()) {
             if ($this->hasErrors()) {
@@ -72,7 +73,7 @@ abstract class BaseModel extends ActiveRecord
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function updateActiveRecord(bool $runValidation = true, array $attributeNames = null): int
+    public function updateActiveRecord(bool $runValidation = true, ?array $attributeNames = null): int
     {
         $affectedNum = $this->update($runValidation, $attributeNames);
         if ($affectedNum === false) {
@@ -88,8 +89,9 @@ abstract class BaseModel extends ActiveRecord
      * @param bool $runValidation
      * @param array|null $attributeNames
      * @throws ActiveRecordSaveException
+     * @throws Exception
      */
-    public function saveActiveRecord(bool $runValidation = true, array $attributeNames = null)
+    public function saveActiveRecord(bool $runValidation = true, ?array $attributeNames = null): void
     {
         if (!$this->save($runValidation, $attributeNames)) {
             if ($this->hasErrors()) {

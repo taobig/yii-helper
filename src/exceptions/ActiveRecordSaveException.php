@@ -1,6 +1,5 @@
 <?php
 
-
 namespace taobig\yii\exceptions;
 
 

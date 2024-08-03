@@ -57,7 +57,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->queryBaseClass, '\\
     * @param <?= $modelFullClassName ?> $model
     * @return $this
     */
-    public function search($model)
+    public function search($model): static
     {
 <?php foreach ($properties as $property => $data):
     if (class_exists('\\' . $generator->ns . '\\' . $modelFullClassName)) {
