@@ -13,11 +13,16 @@ abstract class BaseQuery extends \taobig\yii\model\BaseQuery
     }*/
 
     /**
+     * @deprecated
      * @param BaseModel $model
      * @return $this
      */
     abstract public function search($model);
 
+    /**
+     * @deprecated
+     * @return $this
+     */
     public final function active()
     {
         /** @var BaseModel $model */
@@ -28,6 +33,11 @@ abstract class BaseQuery extends \taobig\yii\model\BaseQuery
         return $this;
     }
 
+    /**
+     * @deprecated
+     * @param BaseModel $model
+     * @return $this
+     */
     public final function searchActive(BaseModel $model)
     {
         if ($model->getSoftDeleteAttribute()) {

@@ -14,6 +14,7 @@ abstract class BaseModel extends \taobig\yii\model\BaseModel
 {
 
     /**
+     * @deprecated
      * @return string|null
      */
     public static function getSoftDeleteAttribute()
@@ -27,6 +28,7 @@ abstract class BaseModel extends \taobig\yii\model\BaseModel
 //    }
 
     /**
+     * @deprecated
      * 区别于self::findActiveOne()，会加入limit(1)
      * @param $condition
      * @return static|null ActiveRecord instance matching the condition, or `null` if nothing matches.
@@ -42,6 +44,7 @@ abstract class BaseModel extends \taobig\yii\model\BaseModel
     }
 
     /**
+     * @deprecated
      * @param $condition
      * @return static|null ActiveRecord instance matching the condition, or `null` if nothing matches.
      * @throws \yii\base\InvalidConfigException
@@ -56,6 +59,7 @@ abstract class BaseModel extends \taobig\yii\model\BaseModel
     }
 
     /**
+     * @deprecated
      * @param $condition
      * @return static[] an array of ActiveRecord instances, or an empty array if nothing matches.
      * @throws \yii\base\InvalidConfigException
@@ -70,6 +74,7 @@ abstract class BaseModel extends \taobig\yii\model\BaseModel
     }
 
     /**
+     * @deprecated
      * @return false|int
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
@@ -84,6 +89,10 @@ abstract class BaseModel extends \taobig\yii\model\BaseModel
         return false;
     }
 
+    /**
+     * @deprecated
+     * @return string
+     */
     public function getFirstErrorMessage(): string
     {
         if ($this->hasErrors()) {
@@ -93,6 +102,7 @@ abstract class BaseModel extends \taobig\yii\model\BaseModel
     }
 
     /**
+     * @deprecated
      * @param array|null $attributeNames
      * @param bool $clearErrors
      * @return bool
@@ -111,6 +121,7 @@ abstract class BaseModel extends \taobig\yii\model\BaseModel
     }
 
     /**
+     * @deprecated
      * @throws ActiveRecordSaveException
      * @throws \Throwable
      */
@@ -125,6 +136,7 @@ abstract class BaseModel extends \taobig\yii\model\BaseModel
     }
 
     /**
+     * @deprecated
      * @param bool $runValidation
      * @param array|null $attributeNames
      * @return int
@@ -145,6 +157,7 @@ abstract class BaseModel extends \taobig\yii\model\BaseModel
     }
 
     /**
+     * @deprecated
      * @param bool $runValidation
      * @param array|null $attributeNames
      * @throws ActiveRecordSaveException
