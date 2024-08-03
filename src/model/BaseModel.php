@@ -15,6 +15,15 @@ abstract class BaseModel extends ActiveRecord
 //        return 'version';
 //    }
 
+    /**
+     * @return string|null
+     */
+    public static function getSoftDeleteAttribute()
+    {
+        //return 'deleted_at'; //soft delete attribute
+        return null; //no soft delete
+    }
+
     public function getFirstErrorMessage(): string
     {
         if ($this->hasErrors()) {
