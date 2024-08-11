@@ -75,10 +75,13 @@ class Generator extends \yii\gii\generators\model\Generator
      */
     public function generate()
     {
-        $reflector = new ReflectionClass(Module::class);
+        $giiModule = new Module(uniqid());
+        $reflector = new ReflectionClass(get_class($giiModule));
         $reflectionMethod = $reflector->getMethod("defaultVersion");
-        $reflectionMethod->setAccessible(true);
-        $giiVersion = $reflectionMethod->invoke(new Module([]));
+        if (PHP_VERSION_ID < 80100) {
+            $reflectionMethod->setAccessible(true); // Note: As of PHP 8.1.0, calling this method has no effect; all methods are invokable by default.
+        }
+        $giiVersion = $reflectionMethod->invoke($giiModule);
 
         $files = [];
         $relations = $this->generateRelations();
