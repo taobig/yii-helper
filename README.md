@@ -1,4 +1,7 @@
 # yii-helper
+[![Latest Stable Version](https://poser.pugx.org/taobig/yii-helper/v/stable)](https://packagist.org/packages/taobig/yii-helper)
+[![Total Downloads](https://poser.pugx.org/taobig/yii-helper/downloads)](https://packagist.org/packages/taobig/yii-helper)
+[![License](https://poser.pugx.org/taobig/yii-helper/license)](https://packagist.org/packages/taobig/yii-helper)
 
 ### INSTALLATION
 **Install via Composer**  
